@@ -36,12 +36,12 @@ void FallPhysics(){
 		}
 		
 			
-
-		UINT8 tile = GetScrollTile((THIS->x) >> 3, (THIS ->y + 12u) >> 3);
+		//(THIS ->y + spriten korkeus), eli tällä hetkellä 14u joka on player.gbr.meta -ph:n arvo
+		UINT8 tile = GetScrollTile((THIS->x) >> 3, (THIS ->y + 14u) >> 3);
 		if(tile == 1u){
 			fall_speed = 0;
 			state = GROUND;
-			while (GetScrollTile((THIS->x) >> 3, (THIS ->y + 12u) >> 3) == 1u)
+			while (GetScrollTile((THIS->x) >> 3, (THIS ->y + 14u) >> 3) == 1u)
 			{
 				THIS->y--;
 			}
