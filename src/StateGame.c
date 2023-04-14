@@ -5,10 +5,11 @@
 #include "SpriteManager.h"
 
 IMPORT_MAP(map);
+UINT8 collision_tiles[] = {1, 0};
 
 void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
-	InitScroll(BANK(map), &map, 0, 0);
+		InitScroll(BANK(map), &map, collision_tiles, 0);
 }
 
 void UPDATE() {
