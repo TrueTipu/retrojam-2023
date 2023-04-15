@@ -12,6 +12,8 @@ void SetTarget(Sprite* target, Sprite* spr) BANKED;
 
 void SetSpot(INT8 x, INT8 y, Sprite* spr) BANKED;
 
+UINT8 TryOpen(Sprite* door, Sprite* key) BANKED;
+
 void START() {
 	
 }
@@ -43,12 +45,13 @@ UINT8 dir;
 
 Sprite* hold = NULL;
 
+
 Sprite* CheckSpriteCollision(){
 	UINT8 i;
 	Sprite* spr;
 	
 	SPRITEMANAGER_ITERATE(i, spr) {
-		if(spr->type == SpriteKey) {
+		if(spr->type == SpriteKey || spr->type == SpriteDoor) {
 			if(CheckCollision(THIS, spr)) {
 				return spr;
 			}
@@ -56,7 +59,15 @@ Sprite* CheckSpriteCollision(){
 	}
 	return NULL;
 }
-
+void DoorCheck(Sprite* spr){
+	if(spr->type == SpriteDoor && hold != NULL){
+		if(TryOpen(spr, hold))
+		{
+			SpriteManagerRemoveSprite(hold);
+			hold = NULL;
+		}
+	}
+}
 INT8 touch_ground(){
 	//Oikea reuna
 	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + THIS->mt_sprite_info->height) >> 3);
@@ -80,6 +91,20 @@ INT8 touch_ceiling(){
 	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y - 1u) >> 3);
 	return (tile == 1u || tile2 == 1u);
 }
+INT8 CheckFrontTile(INT8 multip){
+	TranslateSprite(THIS, multip*1, 0);
+
+	hold = CheckSpriteCollision();
+	if(hold != NULL){
+		if(((hold->x) == (THIS->x + THIS->mt_sprite_info->width)) || ((hold->x + hold->mt_sprite_info->width) == (THIS->x))){	
+			TranslateSprite(THIS, multip * -1, 0);	
+			return 1;
+		}
+			
+	}
+	TranslateSprite(THIS, multip * -1, 0);	
+	return 0;
+}
 void jump(){
 	fall_speed = -4;
 	koyote_timer = 0;
@@ -87,9 +112,7 @@ void jump(){
 	state = FALLING;
 }
 void FallPhysics(){
-	DPRINT_POS(0, 0);
-	DPrintf("%d", state);
-	if(KEY_TICKED(J_A) && hold == NULL){
+	if(KEY_TICKED(J_UP) && hold == NULL){
 		jbuff_timer = jbuff_time;
 	}	
 	if(state == FALLING){
@@ -150,9 +173,6 @@ void FallPhysics(){
 void UPDATE() {
 	
 
-	if(KEY_PRESSED(J_DOWN)) {
-		TranslateSprite(THIS, 0, 1);
-	}
 	if(KEY_PRESSED(J_LEFT)) {
 		dir = 1;
 		TranslateSprite(THIS, -1, 0);
@@ -164,6 +184,7 @@ void UPDATE() {
 			if((spr->x + spr->mt_sprite_info->width) == (THIS->x)){
 				TranslateSprite(THIS, 1, 0);	
 			}
+			DoorCheck(spr);
 		}
 	}
 	if(KEY_PRESSED(J_RIGHT)) {
@@ -178,40 +199,26 @@ void UPDATE() {
 			if((spr->x) == (THIS->x + THIS->mt_sprite_info->width)){
 				TranslateSprite(THIS, -1, 0);	
 			}
+			DoorCheck(spr);
 		}
 	}
 	if(keys == 0) {
 		if (state == GROUND) {
 			SetSpriteAnim(THIS, anim_idle, 8);
 		}
-
 	}
 	if(KEY_TICKED(J_B)){
 		if(hold == NULL){
 			UINT8 touched = 0;
 			if(dir == 0){
-				TranslateSprite(THIS, 1, 0);
-				hold = CheckSpriteCollision();
-				if(hold != NULL){
-					if((hold->x) == (THIS->x + THIS->mt_sprite_info->width)){
-						TranslateSprite(THIS, -1, 0);	
-						touched = 1;
-					}
-				}
+				touched += CheckFrontTile(1);
 			}
 			else
 			{
-				TranslateSprite(THIS, -1, 0);
-				hold = CheckSpriteCollision();
-				if(hold != NULL){
-					if((hold->x + hold->mt_sprite_info->width) == (THIS->x)){
-						TranslateSprite(THIS, 1, 0);
-						touched = 1;
-					}
-				}
+				touched += CheckFrontTile(-1);
 			}
 
-			if(touched == 1){
+			if(touched && hold->type == SpriteKey){
 				SetTarget(THIS, hold);
 			}
 			else{
@@ -228,7 +235,36 @@ void UPDATE() {
 				hold = NULL;
 			}
 		}
-		
+	}
+	if(KEY_TICKED(J_A)){
+		UINT8 touched = 0;
+		if(dir == 0){
+			touched += CheckFrontTile(1);
+		}
+		else
+		{
+			touched += CheckFrontTile(-1);
+		}
+
+		if(touched){
+			DPRINT_POS(0, 0);
+			switch (hold->type)
+			{
+				case SpriteKey:
+					DPrintf("HEI");
+					UPDATE_HUD_TILE(17, 0, 3);
+					break;
+				case SpriteDoor:
+					DPrintf("MOI");
+					UPDATE_HUD_TILE(17, 0, 1);
+					break;
+				default:
+					DPrintf("JOU");
+					break;
+			}
+
+		}
+		hold = NULL;
 	}
 
 	FallPhysics();
