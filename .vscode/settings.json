@@ -10,12 +10,14 @@
         "*.sln": true,
         "*.vcxproj*": true,
         "*.db": true,
-        ".gitignore": true,
+        ".gitignore": false,
         ".vs": true
     },
     "cmake.configureOnOpen": false,
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "gb.h": "c"
+        "gb.h": "c",
+        "zgbmain.h": "c",
+        "setautobank.h": "c"
     }
 }

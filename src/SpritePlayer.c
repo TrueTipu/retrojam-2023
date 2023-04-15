@@ -14,6 +14,10 @@ void SetSpot(INT8 x, INT8 y, Sprite* spr) BANKED;
 
 UINT8 TryOpen(Sprite* door, Sprite* key) BANKED;
 
+
+
+
+
 void START() {
 	
 }
@@ -44,6 +48,10 @@ const UINT8 anim_fall[] = {1, 1};
 UINT8 dir;
 
 Sprite* hold = NULL;
+
+Sprite *getHoldedItem() BANKED{
+	return hold;
+}
 
 
 Sprite* CheckSpriteCollision(){

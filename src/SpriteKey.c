@@ -22,11 +22,19 @@ KEYTYPE GetType(Sprite* spr) BANKED{
     return data->key_type;
 }
 
+
 void SetTarget(Sprite* target, Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
     data->target = target;
 }
-void SetSpot(INT8 x, INT8 y, Sprite* spr) BANKED{
+
+void SetPosition(UINT8 new_x, UINT8 new_y) BANKED{
+    CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
+
+    data->x = new_x;
+    data->y = new_y;
+}
+void SetSpot(UINT8 x, UINT8 y, Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
     data->x = x;
     data->y = y;

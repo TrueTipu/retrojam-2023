@@ -94,7 +94,7 @@
          {
             "label": "MY TASK",
             "type": "shell",
-            "command": "E:/ZGB-template-master/build.bat",
+            "command": "C:/Users/mellu/Documents/gamejam/retrojam-2023/build.bat",
             "isBackground": false,
             "group": {
                 "kind": "build",
