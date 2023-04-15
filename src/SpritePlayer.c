@@ -193,7 +193,7 @@ void UPDATE() {
 				TranslateSprite(THIS, 1, 0);
 				hold = CheckSpriteCollision();
 				if(hold != NULL){
-					if((hold->x) == (THIS->x + THIS->mt_sprite_info->width) &&  ((hold->y) < (THIS->y + 2u))){
+					if((hold->x) == (THIS->x + THIS->mt_sprite_info->width)){
 						TranslateSprite(THIS, -1, 0);	
 						touched = 1;
 					}
@@ -204,7 +204,7 @@ void UPDATE() {
 				TranslateSprite(THIS, -1, 0);
 				hold = CheckSpriteCollision();
 				if(hold != NULL){
-					if((hold->x + hold->mt_sprite_info->width) == (THIS->x) &&  ((hold->y) < (THIS->y + 2u))){
+					if((hold->x + hold->mt_sprite_info->width) == (THIS->x)){
 						TranslateSprite(THIS, 1, 0);
 						touched = 1;
 					}
@@ -220,11 +220,11 @@ void UPDATE() {
 		}
 		else{
 			if(dir == 0){
-				SetSpot(THIS->x + 10, THIS->y, hold);
+				SetSpot(THIS->x + 20, THIS->y +8, hold);
 				hold = NULL;
 			}
 			if(dir == 1){
-				SetSpot(THIS->x -10, THIS->y, hold);
+				SetSpot(THIS->x -10, THIS->y+ 8, hold);
 				hold = NULL;
 			}
 		}
