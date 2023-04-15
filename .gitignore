@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+.vscode/
+ZGB-2022.0/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -251,3 +254,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+.vscode/settings.json
