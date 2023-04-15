@@ -28,11 +28,16 @@ UINT8 koyote_time = 6u;
 UINT8 jbuff_timer;
 UINT8 jbuff_time = 6u;
 
+const UINT8 anim_idle[] = {2, 4, 5}; 
+const UINT8 anim_walk[] = {3, 0, 1, 2};
+const UINT8 anim_jump[] = {1, 2};
+const UINT8 anim_fall[] = {1, 1};
+
 INT8 touch_ground(){
 	//Oikea reuna
-	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + 14u) >> 3);
+	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + 8u) >> 3);
 	//Vasen reuna
-	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + 14u) >> 3);
+	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + 8u) >> 3);
 	return (tile == 1u || tile2 == 1u);
 }
 
@@ -90,6 +95,13 @@ void FallPhysics(){
 			THIS->y++;
 			state = GROUND;
 		}
+
+		if (fall_speed > 0){
+			SetSpriteAnim(THIS, anim_fall, 15);
+		}
+		else {
+			SetSpriteAnim(THIS, anim_jump, 15);
+		}
 	}
 	
 	if(state == GROUND){
@@ -107,19 +119,26 @@ void UPDATE() {
 	DPRINT_POS(0, 0);
 	DPrintf("x:%d y:%d  %d", THIS->x, THIS->y, state);
 
-    if(KEY_PRESSED(J_UP)) {
-		TranslateSprite(THIS, 0, -15);
-	} 
 	if(KEY_PRESSED(J_DOWN)) {
 		TranslateSprite(THIS, 0, 1);
 	}
 	if(KEY_PRESSED(J_LEFT)) {
 		TranslateSprite(THIS, -1, 0);
+		if (state == GROUND) {
+			SetSpriteAnim(THIS, anim_walk, 15);
+		}
 	}
 	if(KEY_PRESSED(J_RIGHT)) {
 		TranslateSprite(THIS, 1, 0);
+		if (state == GROUND) {
+			SetSpriteAnim(THIS, anim_walk, 15);
+		}
 	}
-
+	if(keys == 0) {
+		if (state == GROUND) {
+			SetSpriteAnim(THIS, anim_idle, 8);
+		}
+	}
 
 	FallPhysics();
 }
