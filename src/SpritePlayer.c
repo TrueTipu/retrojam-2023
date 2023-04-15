@@ -58,7 +58,7 @@ Sprite* CheckSpriteCollision(){
 }
 
 INT8 touch_ground(){
-		//Oikea reuna
+	//Oikea reuna
 	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + THIS->mt_sprite_info->height) >> 3);
 	//Vasen reuna
 	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + THIS->mt_sprite_info->height) >> 3);
