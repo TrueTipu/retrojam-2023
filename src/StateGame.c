@@ -17,15 +17,15 @@ void START() {
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 
+	INIT_CONSOLE(font, 3);
+
 	SpriteManagerAdd(SpriteItem, 70, 50);
 		
 	SpriteManagerAdd(SpriteKey, 70, 120);
 
-	
+	SpriteManagerAdd(SpriteDoor, 100, 104);
 
 
-	
-	INIT_CONSOLE(font, 3);
 }
 
 void UPDATE() {

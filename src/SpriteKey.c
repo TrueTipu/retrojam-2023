@@ -2,11 +2,25 @@
 
 #include "SpriteManager.h"
 #include "Print.h"
+typedef enum{
+	TYPE1,
+	TYPE2,
+	TYPE3
+} KEYTYPE;
+
 typedef struct {
     Sprite* target;
     UINT8 x;
     UINT8 y;
+    KEYTYPE key_type;
 } CUSTOM_DATA;
+
+
+
+KEYTYPE GetType(Sprite* spr) BANKED{
+    CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
+    return data->key_type;
+}
 
 void SetTarget(Sprite* target, Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
@@ -22,6 +36,7 @@ void START(){
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     data->target = NULL;
     data->x = THIS->x;
+    data->key_type = TYPE3;
     data->y = THIS->y;
 }
 
