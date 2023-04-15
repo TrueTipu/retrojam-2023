@@ -25,7 +25,6 @@ UINT8 gravityslow = 0;
 UINT8 koyote_timer;
 UINT8 koyote_time = 6u;
 
-
 UINT8 jbuff_timer;
 UINT8 jbuff_time = 6u;
 
