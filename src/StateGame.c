@@ -5,15 +5,18 @@
 #include "SpriteManager.h"
 #include "Print.h"
 IMPORT_TILES(font);
-IMPORT_MAP(map);
-UINT8 collision_tiles[] = {1, 0};
+IMPORT_MAP(mappinen);
+IMPORT_MAP(hud);
+
+UINT8 collision_tiles[] = {1, 2, 4, 5, 6, 0};
 
 void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	SpriteManagerAdd(SpriteItem, 70, 50);
 
-	InitScroll(BANK(map), &map, collision_tiles, 0);
-	
+	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
+
+	INIT_HUD(hud);	
 	INIT_CONSOLE(font, 3);
 }
 

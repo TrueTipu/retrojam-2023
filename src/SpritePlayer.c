@@ -38,7 +38,7 @@ INT8 touch_ground(){
 	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + 8u) >> 3);
 	//Vasen reuna
 	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + 8u) >> 3);
-	return (tile == 1u || tile2 == 1u);
+	return (tile == 2u || tile2 == 1u);
 }
 
 INT8 touch_ceiling(){
