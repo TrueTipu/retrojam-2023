@@ -35,9 +35,9 @@ const UINT8 anim_fall[] = {1, 1};
 
 INT8 touch_ground(){
 	//Oikea reuna
-	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + 16u) >> 3);
+	UINT8 tile = GetScrollTile((THIS->x + 7u)>> 3, (THIS ->y + 8u) >> 3);
 	//Vasen reuna
-	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + 16u) >> 3);
+	UINT8 tile2 = GetScrollTile((THIS->x )>> 3, (THIS ->y + 8u) >> 3);
 	return (tile == 2u || tile2 == 1u);
 }
 
