@@ -64,6 +64,11 @@ Sprite* CheckSpriteCollision(){
 				return spr;
 			}
 		}
+		if(spr->type == SpritePipe){
+			if(CheckCollision(THIS, spr)) {
+				SetState(StateGame);
+			}
+		}
 	}
 	return NULL;
 }

@@ -53,6 +53,7 @@ void START()
 
 	SpriteManagerAdd(SpriteItem, 70, 50);
 
+	SpriteManagerAdd(SpritePipe, 120, 112);
 	for (int i = 0; i < sprite_idx; i++)
 	{
 		items[i].sprite_id = SpriteManagerAdd(items[i].type, items[i].x, items[i].y);
