@@ -94,7 +94,7 @@
          {
             "label": "MY TASK",
             "type": "shell",
-            "command": "D:/retrojam-2023/build_Color.bat",
+            "command": "E:/ZGB-template-master/build.bat",
             "isBackground": false,
             "group": {
                 "kind": "build",

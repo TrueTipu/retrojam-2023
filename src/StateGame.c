@@ -11,12 +11,20 @@ IMPORT_MAP(hud);
 UINT8 collision_tiles[] = {1, 2, 4, 5, 6, 0};
 
 void START() {
-	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
-	SpriteManagerAdd(SpriteItem, 70, 50);
-
 	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
 
 	INIT_HUD(hud);	
+
+	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
+
+	SpriteManagerAdd(SpriteItem, 70, 50);
+		
+	SpriteManagerAdd(SpriteKey, 70, 120);
+
+	
+
+
+	
 	INIT_CONSOLE(font, 3);
 }
 
