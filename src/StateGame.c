@@ -18,7 +18,6 @@ typedef struct
 	UINT16 y;
 	UINT8 type;
 	Sprite *sprite_id;
-	UINT8 destroyed;
 } item;
 
 item items[100];
@@ -29,7 +28,6 @@ item test_item = {
 	120u,
 	SpriteKey,
 	NULL,
-	0,
 };
 item test_item2 = {
 	100u,
