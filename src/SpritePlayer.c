@@ -278,9 +278,9 @@ void UPDATE() {
 		}
 
 		if(touched){
-		
+			if(hold2->type != SpriteDoor){
 		 	CorruptItem(hold2);
-
+			}
 			switch (hold2->type)
 			{
 

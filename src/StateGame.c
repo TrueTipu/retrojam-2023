@@ -20,10 +20,12 @@ Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
 void SetKeyType(Sprite* spr, KEYTYPE key_type) BANKED;
 void SetDoorType(Sprite* spr, KEYTYPE key_type) BANKED;
+KEYTYPE GetType(Sprite* spr) BANKED;
+
 
 
 // DECLARE_MUSIC(musiki);
-UINT8 next_type;
+KEYTYPE next_type = 99u;
 
 typedef struct
 {
@@ -32,7 +34,7 @@ typedef struct
 	UINT8 type;
 	Sprite *sprite_id;
 	UINT8 destroyed;
-	void* custom_data;
+	KEYTYPE key_type;
 } item;
 
 item items[100];
@@ -53,12 +55,12 @@ void DestroyItem(Sprite *doomedSprite) BANKED
 }
 void CorruptItem(Sprite *targetSprite) BANKED
 {
-	next_type = targetSprite->type;
+	next_type = GetType(targetSprite);
 	DPRINT_POS(0, 0);
 
 	for (int i = 0; i < sprite_idx; i++)
 	{
-		if (items[i].type == targetSprite->type)
+		if (items[i].type == SpriteKey && items[i].key_type == next_type)
 		{
 			items[i].type = SpriteCorrupted;
 			if (items[i].sprite_id != NULL)
@@ -83,9 +85,12 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y, KEYTYPE key_type)
 	items[sprite_idx].sprite_id = SpriteManagerAdd(items[sprite_idx].type, items[sprite_idx].x, items[sprite_idx].y);
 	if(n_type == SpriteKey && key_type != 99){
 		SetKeyType(items[sprite_idx].sprite_id, key_type);
+		items[sprite_idx].key_type = key_type;
 	}
 	if(n_type == SpriteDoor && key_type != 99){
 		SetDoorType(items[sprite_idx].sprite_id, key_type);
+		items[sprite_idx].key_type = key_type;
+
 	}
 	sprite_idx++;
 }
@@ -103,7 +108,8 @@ void START()
 
 	// AddItem(SpritePipe, 120, 112);
 
-	AddItem(SpriteDoor, 110, 110, TYPE1);
+	AddItem(SpriteDoor, 140, 110, TYPE1);
+	AddItem(SpriteKey, 60, 104, TYPE2);
 
 	AddItem(SpriteKey, 20, 104, TYPE1);
 
@@ -137,9 +143,14 @@ void UPDATE()
 		{
 			if (items[i].type == SpriteCorrupted)
 			{
-				items[i].type = next_type;
+
+				items[i].type = SpriteKey;
+				items[i].key_type = next_type;
 			}
 			items[i].sprite_id = SpriteManagerAdd(items[i].type, items[i].x, items[i].y);
+			SetKeyType(items[i].sprite_id, items[i].key_type);
+			
+
 		}
 		if ((INT16)(scroll_target->x - items[i].x) > 80 || (INT16)(scroll_target->x - items[i].x) < -80)
 		{
