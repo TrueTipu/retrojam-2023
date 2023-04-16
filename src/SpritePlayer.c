@@ -82,6 +82,7 @@ Sprite* CheckSpriteCollision(){
 		}
 		if(spr->type == SpritePipe){
 			if(CheckCollision(THIS, spr)) {
+				addL();
 				SetState(StateGame);
 			}
 		}
@@ -318,7 +319,7 @@ void UPDATE() {
 					UPDATE_HUD_TILE(17, 0, 1);
 					break;
 				case SpriteSand:
-					DPrintf("JJAAJ");
+					// DPrintf("JJAAJ");
 					HudUpdate(20);
 					break;
 				default:

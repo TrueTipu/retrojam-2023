@@ -100,25 +100,32 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y, KEYTYPE key_type)
 void START()
 {
 
-	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
-
-	INIT_HUD(hud);
-	INIT_CONSOLE(font, 3);
-
-	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	
 
+	INIT_CONSOLE(font, 3);
+	
+
+	
+
+	switch (getL())
+	{
+	case 0:
+		InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
+		AddItem(SpriteDoor, 10, 5, TYPE1);
+		AddItem(SpriteKey, 10, 11, TYPE2);
+
+		AddItem(SpriteKey, 15, 11, TYPE1);
+		AddItem(SpritePipe, 1, 11, NULL);
+		break;
+	case 1:
+		InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
+	}
 	// AddItem(SpritePipe, 120, 112);
 
-	AddItem(SpriteDoor, 140, 110, TYPE1);
-	AddItem(SpriteKey, 60, 104, TYPE2);
-
-	AddItem(SpriteKey, 20, 104, TYPE1);
-
+	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	// PlayMusic(musiki, 1);
+	INIT_HUD(hud);
 
-	DPRINT_POS(0,0);
-	DPrintf("%d", getL());
 }
 
 void UPDATE()
