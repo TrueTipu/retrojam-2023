@@ -60,7 +60,7 @@ void UPDATE() {
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     if(data->target != NULL){
         THIS->x = data->target->x;
-        THIS->y = data->target->y - 16;
+        THIS->y = data->target->y - 20;
     }
     else{
         THIS->x = data->x;

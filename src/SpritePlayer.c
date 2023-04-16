@@ -210,13 +210,15 @@ void UPDATE() {
 			SetSpriteAnim(THIS, anim_walk, 15);
 		}
 		Sprite* spr = CheckSpriteCollision();
+		DPRINT_POS(0, 0);
 		if(spr != NULL){
-	
+			DPrintf("000000");
 			if((spr->x) == (THIS->x + THIS->mt_sprite_info->width)){
 				TranslateSprite(THIS, -1, 0);	
 			}
 			DoorCheck(spr);
 		}
+		else DPrintf("1111");
 	}
 	if(keys == 0) {
 		if (state == GROUND) {
@@ -254,11 +256,11 @@ void UPDATE() {
 			}
 			if(touched == 0){
 				if(dir == 0){
-					SetSpot(THIS->x + 20, THIS->y +8, hold);
+					SetSpot(THIS->x + 17, THIS->y, hold);
 					hold = NULL;
 				}
 				if(dir == 1){
-					SetSpot(THIS->x -10, THIS->y+ 8, hold);
+					SetSpot(THIS->x -17, THIS->y, hold);
 					hold = NULL;
 				}
 			}

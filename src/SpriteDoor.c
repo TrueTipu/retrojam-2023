@@ -3,7 +3,9 @@
 
 void DestroyItem(Sprite *doomedSprite) BANKED;
 
-
+const UINT8 door1[] = {1, 0};
+const UINT8 door2[] = {1, 1};
+const UINT8 door3[] = {1, 2};
 typedef enum{
 	TYPE1,
 	TYPE2,
@@ -34,8 +36,24 @@ void START() {
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     data->key_type = TYPE3;
 }
-
+    
 void UPDATE() {
+    CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
+    data->key_type = TYPE3;
+    switch (data->key_type)
+    {
+        case TYPE1:
+            SetSpriteAnim(THIS, door1, 15);
+            break;
+        case TYPE2:
+            SetSpriteAnim(THIS, door2, 15);
+            break;
+        case TYPE3:
+            SetSpriteAnim(THIS, door3, 15);
+            break;
+        default:
+            break;
+    }
 }
 
 void DESTROY() {

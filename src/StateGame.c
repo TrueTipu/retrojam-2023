@@ -8,7 +8,7 @@
 
 #include "Music.h"
 
-DECLARE_MUSIC(musiki);
+
 
 IMPORT_TILES(font);
 IMPORT_MAP(mappinen);
@@ -16,7 +16,7 @@ IMPORT_MAP(hud);
 Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
 
-
+DECLARE_MUSIC(musiki);
 
 
 typedef struct
@@ -75,12 +75,11 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
 
 void START()
 {
-	PlayMusic(musiki, 1);
 
 
 
 	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
-
+	PlayMusic(musiki, 1);
 	INIT_HUD(hud);
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
@@ -88,7 +87,7 @@ void START()
 
 	//AddItem(SpritePipe, 120, 112);
 
-	AddItem(SpriteDoor, 100, 110);
+	AddItem(SpriteDoor, 110, 110);
 
 	AddItem(SpriteKey, 20, 104);
 
