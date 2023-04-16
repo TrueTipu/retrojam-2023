@@ -6,6 +6,10 @@
 #include "Print.h"
 #include "Keys.h"
 
+#include "Music.h"
+
+DECLARE_MUSIC(musiki);
+
 IMPORT_TILES(font);
 IMPORT_MAP(mappinen);
 IMPORT_MAP(hud);
@@ -71,6 +75,7 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
 
 void START()
 {
+	PlayMusic(musiki, 1);
 
 
 
