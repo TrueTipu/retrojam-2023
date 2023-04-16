@@ -16,7 +16,8 @@ typedef enum{
 UINT8 getL() BANKED;
 
 IMPORT_TILES(font);
-IMPORT_MAP(mappinen);
+IMPORT_MAP(yksiovimappi);
+IMPORT_MAP(ovireikamappi);
 IMPORT_MAP(hud);
 Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
@@ -110,17 +111,14 @@ void START()
 	switch (getL())
 	{
 	case 0:
-		InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
-		AddItem(SpriteDoor, 10, 5, TYPE1);
-		AddItem(SpriteKey, 10, 11, TYPE2);
-
-		AddItem(SpriteKey, 15, 11, TYPE1);
-		AddItem(SpritePipe, 1, 11, NULL);
+		InitScroll(BANK(yksiovimappi), &yksiovimappi, collision_tiles, 0);
+		AddItem(SpriteDoor, 31, 10, TYPE1);
+		AddItem(SpriteKey, 0, 10, TYPE1);
+		AddItem(SpritePipe, 0, 0, 99);
 		break;
 	case 1:
-		InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
+		// InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
 	}
-	// AddItem(SpritePipe, 120, 112);
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	// PlayMusic(musiki, 1);
