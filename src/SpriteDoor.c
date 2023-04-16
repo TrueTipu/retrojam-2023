@@ -24,7 +24,7 @@ UINT8 TryOpen(Sprite* door, Sprite* key) BANKED{
         return 0u;
     }
 }
-void SetType(Sprite* spr, KEYTYPE key_type) BANKED{
+void SetDoorType(Sprite* spr, KEYTYPE key_type) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
      data->key_type = key_type;
 }

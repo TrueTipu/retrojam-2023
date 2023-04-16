@@ -22,7 +22,7 @@ KEYTYPE GetType(Sprite* spr) BANKED{
     return data->key_type;
 }
 
-void SetType(Sprite* spr, KEYTYPE key_type) BANKED{
+void SetKeyType(Sprite* spr, KEYTYPE key_type) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
      data->key_type = key_type;
 }
