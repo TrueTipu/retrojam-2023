@@ -16,6 +16,7 @@ UINT8 TryOpen(Sprite* door, Sprite* key) BANKED;
 
 
 void DestroyItem(Sprite *doomedSprite) BANKED;
+void CorruptItem(Sprite *targetSprite) BANKED;
 
 
 
@@ -276,8 +277,11 @@ void UPDATE() {
 
 		if(touched){
 			DPRINT_POS(0, 0);
+		 	CorruptItem(hold2);
+
 			switch (hold2->type)
 			{
+
 				case SpriteKey:
 					DPrintf("HEI");
 					UPDATE_HUD_TILE(17, 0, 3);

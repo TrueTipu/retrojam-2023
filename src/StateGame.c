@@ -20,12 +20,13 @@ typedef struct
 	UINT16 x;
 	UINT16 y;
 	UINT8 type;
+	UINT8 next_type;
 	Sprite *sprite_id;
 	UINT8 destroyed;
 } item;
 
 item items[100];
-UINT8 sprite_idx;
+UINT8 sprite_idx = 0u;
 
 UINT8 collision_tiles[] = {1, 2, 4, 5, 6, 0};
 
@@ -37,6 +38,20 @@ void DestroyItem(Sprite *doomedSprite) BANKED{
 	}
 	SpriteManagerRemoveSprite(doomedSprite);
 }
+void CorruptItem(Sprite *targetSprite) BANKED{
+/* 	for(int i = 0; i < sprite_idx; i++){
+		if(items[i].type == targetSprite->type){
+			items[i].type = SpriteCorrupted;
+			items[i].next_type = targetSprite->type;
+			if(items[i].sprite_id != NULL){
+				SpriteManagerRemoveSprite(items[i].sprite_id);
+				SpriteManagerAdd(items[i].type, items[i].x, items[i].y);
+			}
+
+		}
+	} */
+
+}
 
 
 void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
@@ -46,6 +61,7 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
 	n_i.type = n_type;
 	n_i.sprite_id = NULL;
 	n_i.destroyed = 0;
+	n_i.next_type = NULL;
 
 	items[sprite_idx] = n_i;
 	items[sprite_idx].sprite_id = SpriteManagerAdd(items[sprite_idx].type, items[sprite_idx].x, items[sprite_idx].y);
@@ -55,7 +71,7 @@ void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
 
 void START()
 {
-	sprite_idx = 0;
+
 
 
 	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
@@ -69,7 +85,7 @@ void START()
 
 	AddItem(SpriteDoor, 100, 110);
 
-	SpriteManagerAdd(SpriteKey, 20, 104);
+	AddItem(SpriteKey, 20, 104);
 
 	INIT_CONSOLE(font, 3);
 }
@@ -98,6 +114,9 @@ void UPDATE()
 		}
 		if (((INT16)(scroll_target->x - items[i].x) < 80 && (INT16)(scroll_target->x - items[i].x) > -80) && items[i].sprite_id == NULL)
 		{
+			if(items[i].type == SpriteCorrupted){
+				items[i].type == items[i].next_type;
+			}
 			items[i].sprite_id = SpriteManagerAdd(items[i].type, items[i].x, items[i].y);
 		}
 		if ((INT16)(scroll_target->x - items[i].x) > 80 || (INT16)(scroll_target->x - items[i].x) < -80)
