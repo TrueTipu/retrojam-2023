@@ -15,6 +15,7 @@ void SetSpot(INT8 x, INT8 y, Sprite* spr) BANKED;
 UINT8 TryOpen(Sprite* door, Sprite* key) BANKED;
 
 
+void DestroyItem(Sprite *doomedSprite) BANKED;
 
 
 
@@ -71,7 +72,7 @@ void DoorCheck(Sprite* spr){
 	if(spr->type == SpriteDoor && hold != NULL){
 		if(TryOpen(spr, hold))
 		{
-			SpriteManagerRemoveSprite(hold);
+			DestroyItem(hold);
 			hold = NULL;
 		}
 	}

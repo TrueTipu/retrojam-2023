@@ -12,12 +12,16 @@ IMPORT_MAP(hud);
 Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
 
+
+
+
 typedef struct
 {
 	UINT16 x;
 	UINT16 y;
 	UINT8 type;
 	Sprite *sprite_id;
+	UINT8 destroyed;
 } item;
 
 item items[100];
@@ -28,14 +32,26 @@ item test_item = {
 	120u,
 	SpriteKey,
 	NULL,
+	0,
 };
 item test_item2 = {
 	100u,
 	100u,
 	SpriteKey,
 	NULL,
+	0,
 };
 UINT8 collision_tiles[] = {1, 2, 4, 5, 6, 0};
+
+void DestroyItem(Sprite *doomedSprite) BANKED{
+	for(int i = 0; i < sprite_idx; i++){
+		if(items[i].sprite_id == doomedSprite){
+			items[i].destroyed = 1;
+		}
+	}
+	SpriteManagerRemoveSprite(doomedSprite);
+}
+
 void START()
 {
 	sprite_idx = 0;
@@ -68,6 +84,9 @@ void UPDATE()
 
 	for (int i = 0; i < sprite_idx; i++)
 	{
+		if (items[i].destroyed == 1){
+			continue;
+		}
 		if (item_in_hold == items[i].sprite_id)
 		{
 			if (item_in_hold != NULL)
