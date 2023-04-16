@@ -11,6 +11,7 @@ _SPRITE_DMG(SpritePlayer, hattu)\
 _SPRITE_DMG(SpriteItem, tavarat)\
 _SPRITE_DMG(SpriteKey, tavarat)\
 _SPRITE_DMG(SpriteDoor, ovi)\
+_SPRITE_DMG(SpritePipe, enemy)\
 SPRITE_DEF_END
 
 #include "ZGBMain_Init.h"
