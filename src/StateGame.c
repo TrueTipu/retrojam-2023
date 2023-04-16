@@ -17,7 +17,7 @@ UINT8 getL() BANKED;
 
 IMPORT_TILES(font);
 IMPORT_MAP(yksiovimappi);
-IMPORT_MAP(ovireikamappi);
+IMPORT_MAP(tippumappi);
 IMPORT_MAP(hud);
 Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
@@ -112,12 +112,34 @@ void START()
 	{
 	case 0:
 		InitScroll(BANK(yksiovimappi), &yksiovimappi, collision_tiles, 0);
-		AddItem(SpriteDoor, 31, 10, TYPE1);
-		AddItem(SpriteKey, 0, 10, TYPE1);
-		AddItem(SpritePipe, 0, 0, 99);
+		AddItem(SpriteDoor, 23, 13, TYPE1);
+		AddItem(SpriteKey, 5, 13, TYPE1);
+		AddItem(SpritePipe, 32, 14, 99);
+		break;
+	case 4:
+		InitScroll(BANK(tippumappi), &tippumappi, collision_tiles, 0);
+		AddItem(SpriteDoor, 23, 12, TYPE1);
+		AddItem(SpriteKey, 5, 12, TYPE1);
+		AddItem(SpriteKey, 21, 7, TYPE2);
+		AddItem(SpritePipe, 32, 14, 99);
 		break;
 	case 1:
-		// InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
+	 InitScroll(BANK(yksiovimappi), &yksiovimappi, collision_tiles, 0);
+        AddItem(SpriteKey, 10, 13, TYPE1);
+
+        AddItem(SpriteKey, 14, 13, TYPE2);
+        AddItem(SpriteDoor, 23, 13, TYPE1);
+        AddItem(SpritePipe, 32, 14, NULL);
+		break;
+	case 2:
+        InitScroll(BANK(yksiovimappi), &yksiovimappi, collision_tiles, 0);
+        AddItem(SpriteKey, 10, 13, TYPE1);
+
+        AddItem(SpriteKey, 14, 13, TYPE2);
+        AddItem(SpriteDoor, 23, 13, TYPE1);
+        AddItem(SpritePipe, 32, 14, NULL);
+
+        break;
 	}
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
