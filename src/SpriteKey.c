@@ -31,6 +31,7 @@ void SetKeyType(Sprite* spr, KEYTYPE key_type) BANKED{
 
 
 
+
 void SetTarget(Sprite* target, Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
     data->target = target;
@@ -52,7 +53,7 @@ void START(){
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     data->target = NULL;
     data->x = THIS->x;
-    data->key_type = TYPE2;
+    data->key_type = TYPE3;
     data->y = THIS->y;
 }
 

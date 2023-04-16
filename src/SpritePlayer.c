@@ -210,15 +210,15 @@ void UPDATE() {
 			SetSpriteAnim(THIS, anim_walk, 15);
 		}
 		Sprite* spr = CheckSpriteCollision();
-		DPRINT_POS(0, 0);
+	
 		if(spr != NULL){
-			DPrintf("000000");
+			
 			if((spr->x) == (THIS->x + THIS->mt_sprite_info->width)){
 				TranslateSprite(THIS, -1, 0);	
 			}
 			DoorCheck(spr);
 		}
-		else DPrintf("1111");
+		
 	}
 	if(keys == 0) {
 		if (state == GROUND) {
@@ -278,22 +278,22 @@ void UPDATE() {
 		}
 
 		if(touched){
-			DPRINT_POS(0, 0);
+		
 		 	CorruptItem(hold2);
 
 			switch (hold2->type)
 			{
 
 				case SpriteKey:
-					DPrintf("HEI");
+					
 					UPDATE_HUD_TILE(17, 0, 3);
 					break;
 				case SpriteDoor:
-					DPrintf("MOI");
+					
 					UPDATE_HUD_TILE(17, 0, 1);
 					break;
 				default:
-					DPrintf("JOU");
+				
 					break;
 			}
 

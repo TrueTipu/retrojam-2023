@@ -34,12 +34,10 @@ void SetDoorType(Sprite* spr, KEYTYPE key_type) BANKED{
 
 void START() {
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
-    data->key_type = TYPE3;
 }
     
 void UPDATE() {
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
-    data->key_type = TYPE3;
     switch (data->key_type)
     {
         case TYPE1:

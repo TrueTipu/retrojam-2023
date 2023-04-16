@@ -18,6 +18,7 @@
     "files.associations": {
         "gb.h": "c",
         "zgbmain.h": "c",
-        "setautobank.h": "c"
+        "setautobank.h": "c",
+        "spritemanager.h": "c"
     }
 }
