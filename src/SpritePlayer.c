@@ -49,6 +49,7 @@ const UINT8 anim_fall[] = {1, 1};
 UINT8 dir;
 
 Sprite* hold = NULL;
+Sprite* hold2 = NULL;
 
 Sprite *getHoldedItem() BANKED{
 	return hold;
@@ -108,9 +109,9 @@ INT8 touch_ceiling(){
 INT8 CheckFrontTile(INT8 multip){
 	TranslateSprite(THIS, multip*1, 0);
 
-	hold = CheckSpriteCollision();
-	if(hold != NULL){
-		if(((hold->x) == (THIS->x + THIS->mt_sprite_info->width)) || ((hold->x + hold->mt_sprite_info->width) == (THIS->x))){	
+	hold2 = CheckSpriteCollision();
+	if(hold2 != NULL){
+		if(((hold2->x) == (THIS->x + THIS->mt_sprite_info->width)) || ((hold2->x + hold2->mt_sprite_info->width) == (THIS->x))){	
 			TranslateSprite(THIS, multip * -1, 0);	
 			return 1;
 		}
@@ -232,22 +233,35 @@ void UPDATE() {
 				touched += CheckFrontTile(-1);
 			}
 
-			if(touched && hold->type == SpriteKey){
+			if(touched && hold2->type == SpriteKey){
+				hold = hold2;
 				SetTarget(THIS, hold);
 			}
 			else{
 				hold = NULL;
+				hold2 = NULL;
 			}
 		}
 		else{
+			UINT8 touched = 0;
 			if(dir == 0){
-				SetSpot(THIS->x + 20, THIS->y +8, hold);
-				hold = NULL;
+				touched += CheckFrontTile(1);
 			}
-			if(dir == 1){
-				SetSpot(THIS->x -10, THIS->y+ 8, hold);
-				hold = NULL;
+			else
+			{
+				touched += CheckFrontTile(-1);
 			}
+			if(touched == 0){
+				if(dir == 0){
+					SetSpot(THIS->x + 20, THIS->y +8, hold);
+					hold = NULL;
+				}
+				if(dir == 1){
+					SetSpot(THIS->x -10, THIS->y+ 8, hold);
+					hold = NULL;
+				}
+			}
+			hold2 = NULL;
 		}
 	}
 	if(KEY_TICKED(J_A)){
@@ -262,7 +276,7 @@ void UPDATE() {
 
 		if(touched){
 			DPRINT_POS(0, 0);
-			switch (hold->type)
+			switch (hold2->type)
 			{
 				case SpriteKey:
 					DPrintf("HEI");
@@ -278,7 +292,7 @@ void UPDATE() {
 			}
 
 		}
-		hold = NULL;
+		hold2 = NULL;
 	}
 
 	FallPhysics();

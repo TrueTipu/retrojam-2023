@@ -16,7 +16,9 @@ typedef struct {
 } CUSTOM_DATA;
 
 
-
+const UINT8 key1[] = {1, 0};
+const UINT8 key2[] = {1, 1};
+const UINT8 key3[] = {1, 2};
 KEYTYPE GetType(Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
     return data->key_type;
@@ -50,7 +52,7 @@ void START(){
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     data->target = NULL;
     data->x = THIS->x;
-    data->key_type = TYPE3;
+    data->key_type = TYPE2;
     data->y = THIS->y;
 }
 
@@ -63,6 +65,20 @@ void UPDATE() {
     else{
         THIS->x = data->x;
         THIS->y = data->y;
+    }
+    switch (data->key_type)
+    {
+    case TYPE1:
+        SetSpriteAnim(THIS, key1, 15);
+        break;
+    case TYPE2:
+        SetSpriteAnim(THIS, key2, 15);
+        break;
+    case TYPE3:
+        SetSpriteAnim(THIS, key3, 15);
+        break;
+    default:
+        break;
     }
 
 }

@@ -69,6 +69,8 @@ void START()
 
 	AddItem(SpriteDoor, 100, 110);
 
+	SpriteManagerAdd(SpriteKey, 20, 104);
+
 	INIT_CONSOLE(font, 3);
 }
 
