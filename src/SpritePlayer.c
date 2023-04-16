@@ -8,12 +8,18 @@
 
 #include "ZGBMain.h"
 
+typedef enum{
+	TYPE1,
+	TYPE2,
+	TYPE3
+} KEYTYPE;
+
 void SetTarget(Sprite* target, Sprite* spr) BANKED;
 
 void SetSpot(INT8 x, INT8 y, Sprite* spr) BANKED;
-
+void addL() BANKED;
 UINT8 TryOpen(Sprite* door, Sprite* key) BANKED;
-
+KEYTYPE GetType(Sprite* spr) BANKED;
 
 void DestroyItem(Sprite *doomedSprite) BANKED;
 void CorruptItem(Sprite *targetSprite) BANKED;
@@ -56,13 +62,20 @@ Sprite *getHoldedItem() BANKED{
 	return hold;
 }
 
-
+void HudUpdate(INT8 a){
+	UINT8 b = 16;
+	UINT8 c = 0;
+	UPDATE_HUD_TILE(b, c, a);
+	UPDATE_HUD_TILE(b, c+1, a+1);
+	UPDATE_HUD_TILE(b+1, c, a+2);
+	UPDATE_HUD_TILE(b+1, c+1, a+3);
+}
 Sprite* CheckSpriteCollision(){
 	UINT8 i;
 	Sprite* spr;
 	
 	SPRITEMANAGER_ITERATE(i, spr) {
-		if(spr->type == SpriteKey || spr->type == SpriteDoor) {
+		if(spr->type == SpriteKey || spr->type == SpriteDoor || spr->type == SpriteSand) {
 			if(CheckCollision(THIS, spr)) {
 				return spr;
 			}
@@ -285,12 +298,28 @@ void UPDATE() {
 			{
 
 				case SpriteKey:
-					
-					UPDATE_HUD_TILE(17, 0, 3);
+					switch (GetType(hold2))
+					{
+						case TYPE1:
+							HudUpdate(4);
+							break;
+						case TYPE2:
+							HudUpdate(8);
+							break;
+						case TYPE3:
+							HudUpdate(12);
+							break;
+						default:
+							break;
+						}
 					break;
 				case SpriteDoor:
 					
 					UPDATE_HUD_TILE(17, 0, 1);
+					break;
+				case SpriteSand:
+					DPrintf("JJAAJ");
+					HudUpdate(20);
 					break;
 				default:
 				
@@ -299,6 +328,9 @@ void UPDATE() {
 
 		}
 		hold2 = NULL;
+	}
+	if(KEY_TICKED(J_START)){
+		SetState(StateGame);
 	}
 
 	FallPhysics();

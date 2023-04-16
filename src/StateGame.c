@@ -13,6 +13,8 @@ typedef enum{
 	TYPE2,
 	TYPE3
 } KEYTYPE;
+UINT8 getL() BANKED;
+
 IMPORT_TILES(font);
 IMPORT_MAP(mappinen);
 IMPORT_MAP(hud);
@@ -73,8 +75,8 @@ void CorruptItem(Sprite *targetSprite) BANKED
 void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y, KEYTYPE key_type)
 {
 	item n_i;
-	n_i.x = n_x;
-	n_i.y = n_y;
+	n_i.x = n_x * 8;
+	n_i.y = n_y * 8;
 	n_i.type = n_type;
 	n_i.sprite_id = NULL;
 	n_i.destroyed = 0;
@@ -108,6 +110,9 @@ void START()
 	AddItem(SpriteKey, 20, 104, TYPE1);
 
 	// PlayMusic(musiki, 1);
+
+	DPRINT_POS(0,0);
+	DPrintf("%d", getL());
 }
 
 void UPDATE()
