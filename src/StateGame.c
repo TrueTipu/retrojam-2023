@@ -27,20 +27,6 @@ typedef struct
 item items[100];
 UINT8 sprite_idx;
 
-item test_item = {
-	70u,
-	120u,
-	SpriteKey,
-	NULL,
-	0,
-};
-item test_item2 = {
-	100u,
-	100u,
-	SpriteKey,
-	NULL,
-	0,
-};
 UINT8 collision_tiles[] = {1, 2, 4, 5, 6, 0};
 
 void DestroyItem(Sprite *doomedSprite) BANKED{
@@ -52,29 +38,36 @@ void DestroyItem(Sprite *doomedSprite) BANKED{
 	SpriteManagerRemoveSprite(doomedSprite);
 }
 
+
+void AddItem(UINT8 n_type, UINT16 n_x, UINT16 n_y){
+	item n_i;
+	n_i.x = n_x;
+	n_i.y = n_y;
+	n_i.type = n_type;
+	n_i.sprite_id = NULL;
+	n_i.destroyed = 0;
+
+	items[sprite_idx] = n_i;
+	items[sprite_idx].sprite_id = SpriteManagerAdd(items[sprite_idx].type, items[sprite_idx].x, items[sprite_idx].y);
+	sprite_idx++;
+
+}
+
 void START()
 {
 	sprite_idx = 0;
 
-	items[sprite_idx] = test_item;
-	sprite_idx++;
-	items[sprite_idx] = test_item2;
-	sprite_idx++;
 
 	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
 
 	INIT_HUD(hud);
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
+	AddItem(SpriteKey, 70u, 120u);
 
-	SpriteManagerAdd(SpriteItem, 70, 50);
+	//AddItem(SpritePipe, 120, 112);
 
-	SpriteManagerAdd(SpritePipe, 120, 112);
-	for (int i = 0; i < sprite_idx; i++)
-	{
-		items[i].sprite_id = SpriteManagerAdd(items[i].type, items[i].x, items[i].y);
-	}
-	SpriteManagerAdd(SpriteDoor, 100, 104);
+	AddItem(SpriteDoor, 100, 110);
 
 	INIT_CONSOLE(font, 3);
 }

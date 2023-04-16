@@ -1,6 +1,7 @@
 #include "Banks/SetAutoBank.h"
 #include "SpriteManager.h"
 
+void DestroyItem(Sprite *doomedSprite) BANKED;
 
 
 typedef enum{
@@ -17,7 +18,7 @@ KEYTYPE GetType(Sprite* spr) BANKED;
 UINT8 TryOpen(Sprite* door, Sprite* key) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)door->custom_data;
     if(data->key_type == GetType(key)){
-        SpriteManagerRemoveSprite(door);
+        DestroyItem(door);
         return 1u;
     }
     else{
