@@ -16,7 +16,7 @@ IMPORT_MAP(hud);
 Sprite *getHoldedItem() BANKED;
 void SetPosition(UINT8 new_x, UINT8 new_y) BANKED;
 
-DECLARE_MUSIC(musiki);
+// DECLARE_MUSIC(musiki);
 
 
 typedef struct
@@ -79,7 +79,7 @@ void START()
 
 
 	InitScroll(BANK(mappinen), &mappinen, collision_tiles, 0);
-	PlayMusic(musiki, 1);
+
 	INIT_HUD(hud);
 
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
@@ -92,6 +92,7 @@ void START()
 	AddItem(SpriteKey, 20, 104);
 
 	INIT_CONSOLE(font, 3);
+	// PlayMusic(musiki, 1);
 }
 
 void UPDATE()
@@ -129,4 +130,5 @@ void UPDATE()
 			items[i].sprite_id = NULL;
 		}
 	}
+
 }
