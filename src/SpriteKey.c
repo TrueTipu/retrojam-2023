@@ -22,6 +22,12 @@ KEYTYPE GetType(Sprite* spr) BANKED{
     return data->key_type;
 }
 
+void SetType(Sprite* spr, KEYTYPE key_type) BANKED{
+    CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
+     data->key_type = key_type;
+}
+
+
 
 void SetTarget(Sprite* target, Sprite* spr) BANKED{
     CUSTOM_DATA* data = (CUSTOM_DATA*)spr->custom_data;
